@@ -138,6 +138,22 @@ section {
   height: 390px;
 }
 
+.submit-section-button,
+.submit-section {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+}
+
+.tm-search-form {
+    background-color: #f5f6f6;
+    padding: 25px 25px 15px;
+    width: 100%;
+    max-width: 830px;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
 /*---------------------------------------
      BUTTONS               
   -----------------------------------------*/
@@ -831,7 +847,7 @@ footer .social-icon {
   overflow: hidden;
   position: relative;
   z-index: 22;
-  right: 20px;
+  /*right: 20px;*/
   bottom: 20px;
 }
 
