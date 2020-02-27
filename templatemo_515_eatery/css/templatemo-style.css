@@ -150,8 +150,6 @@ section {
     padding: 25px 25px 15px;
     width: 100%;
     max-width: 830px;
-    margin-left: 15px;
-    margin-right: 15px;
 }
 
 /*---------------------------------------
@@ -243,10 +241,6 @@ section {
 
 .top-nav-collapse {
   background: #ffffff;
-}
-
-.custom-navbar .navbar-nav.navbar-nav-first {
-  float: right;
 }
 
 .custom-navbar .navbar-nav.navbar-right li a {
@@ -553,17 +547,17 @@ section {
   background: rgba(0, 0, 0, 0.7);
 }
 .tm-banner-bg {
-  background: url(../images/banner.jpg) center top no-repeat;
+  background: url(../images/banner.jpg) center top;
   min-height: 720px;
   position: relative;
 }
 .tm-banner-row {
-  margin: auto;
-  width: 50%;
   position: relative;
   z-index: 100;
   justify-content: center;
   padding-top: 100px;
+  margin-right: 15px;
+  margin-left: 15px;
 }
 .tm-banner-row-header {
   text-align: center;
@@ -1066,5 +1060,11 @@ footer .social-icon {
 
   .menu-thumb .menu-info {
     top: 60%;
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .custom-navbar .navbar-nav.navbar-nav-first {
+    float: right;
   }
 }
