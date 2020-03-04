@@ -9,7 +9,7 @@ http://www.templatemo.com/tm-515-eatery
 @import url('https://fonts.googleapis.com/css?family=Montserrat:400,700');
 
 body {
-  background: #ffffff;
+  background: #102336;
   font-family: 'Montserrat', sans-serif;
   overflow-x: hidden;
 }
@@ -35,7 +35,7 @@ h1 {
 }
 
 h2 {
-  color: #353535;
+  color: #ffffff;
   font-size: 2em;
   padding-bottom: 10px;
 }
@@ -90,7 +90,7 @@ a:focus {
 }
 
 .section-title {
-  padding-bottom: 40px;
+  padding-bottom: 20px;
 }
 
 .section-title h2 {
@@ -138,7 +138,11 @@ section {
   height: 390px;
 }
 
-.submit-section-button,
+.submit-section-button {
+  background: #e32074;
+  color: #fff;
+}
+
 .submit-section {
   margin-left: auto;
   margin-right: auto;
@@ -146,15 +150,47 @@ section {
 }
 
 .tm-search-form {
-    background-color: #f5f6f6;
-    padding: 25px 25px 15px;
-    width: 100%;
-    max-width: 830px;
+  border-radius: 5px;
+  background-color: #f5f6f6;
+  padding: 25px 25px 15px;
+  width: 100%;
+  max-width: 600px;
+}
+
+.row-no-padding > [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
 /*---------------------------------------
      BUTTONS               
   -----------------------------------------*/
+
+#img-wrap {
+    position: relative;
+    display: inline-block;
+    /*border: 1px red solid;*/
+    font-size: 0;
+}
+#img-wrap .close {
+    position: absolute;
+    top: 2px;
+    right: 10px;
+    z-index: 100;
+    background-color: #FFF;
+    padding: 5px 2px 2px;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+    opacity: .2;
+    text-align: center;
+    font-size: 22px;
+    line-height: 10px;
+    border-radius: 50%;
+}
+#img-wrap:hover .close {
+    opacity: 1;
+}
 
 .section-btn {
   background: #ce3232;
@@ -223,6 +259,13 @@ section {
       MENU              
   -----------------------------------------*/
 
+.tm-banner-row legend {
+  border-radius: 5px;
+  font-weight: bold;
+  padding: .5em;
+  background-color: #7434eb;
+}
+
 .custom-navbar {
   border: none;
   margin-bottom: 0;
@@ -230,9 +273,16 @@ section {
 }
 
 .custom-navbar .navbar-brand {
-  color: #ffffff;
+    position: relative;
+    background: url(../images/logo/white-logo.png) center no-repeat;
+    width: 170px;
+    max-height: 70px;
+    left: 15px;
+    background-size: cover;
+}
+/*  color: #ffffff;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: bold;*/
 }
 
 .custom-navbar .navbar-brand span {
@@ -323,7 +373,13 @@ section {
   }
 
   .top-nav-collapse .navbar-brand {
-    color: #454545;
+    /*color: #454545;*/
+    position: relative;
+    background: url(../images/logo/main-logo.png) center no-repeat;
+    width: 170px;
+    max-height: 50px;
+    left: 15px;
+    background-size: cover;
   }
 
   .top-nav-collapse .nav li a {
@@ -407,11 +463,12 @@ section {
   background-position: inherit;
   background-repeat: no-repeat;
   background-attachment: local;
+  background: #102336;
   background-size: cover;
   height: 250px;
 }
 
-.slider .item-first {
+/*.slider .item-first {
   background-image: url(../images/slider-image1.jpg);
 }
 
@@ -421,7 +478,7 @@ section {
 
 .slider .item-third {
   background-image: url(../images/slider-image3.jpg);
-}
+}*/
 
 .slider .item-second .section-btn {
   background: #292929;
@@ -468,7 +525,7 @@ section {
   -----------------------------------------*/
 
 #team {
-  background: #f9f9f9;
+  /*background: #f9f9f9;*/  
 }
 
 .team-thumb {
@@ -544,7 +601,8 @@ section {
   overflow: auto;
   top: 0px;
   left: 0px;
-  background: rgba(0, 0, 0, 0.7);
+  /*background: rgba(0, 0, 0, 0.7);*/
+  background-image: linear-gradient(rgba(16, 35, 54, 0.7), rgba(16, 35, 54, 1));
 }
 .tm-banner-bg {
   background: url(../images/banner.jpg) center top;
@@ -629,7 +687,8 @@ section {
 #menu .menu-thumb {
   overflow: hidden;
   position: relative;
-  width: 100%;
+  margin: auto;
+  width: 80%;
 }
 
 .menu-thumb .menu-info {
@@ -698,38 +757,33 @@ section {
       TESTIMONIAL             
   -----------------------------------------*/
 
-#testimonial {
-  background: url('../images/testimonial-bg.jpg') center center no-repeat;
-  background-size: cover;
-}
-
-#testimonial .owl-dots {
+#networks .owl-dots {
   position: relative;
   top: 0;
   right: 0;
   justify-content: center;
 }
 
-#testimonial .owl-theme .owl-dots .owl-dot,
-#testimonial .owl-theme .owl-dots .owl-dot span {
+#networks .owl-theme .owl-dots .owl-dot,
+#networks .owl-theme .owl-dots .owl-dot span {
   display: inline-block;
 }
 
-#testimonial .owl-theme .owl-dots .owl-dot span {
+#networks .owl-theme .owl-dots .owl-dot span {
   margin: 20px 5px;
 }
 
-#testimonial h2 {
+#networks h2 {
   color: #ffffff;
 }
 
-#testimonial p,
+#networks p,
 .tst-author h4,
 .tst-author span {
   display: inline;
 }
 
-#testimonial p {
+#networks p {
   color: #d9d9d9;
   font-size: 20px;
   line-height: 35px;
@@ -832,7 +886,6 @@ footer .social-icon {
 }
 
 .footer-open-hour {
-  background: #ce3232;
   background: url('../images/footer-open-hour-bg.jpg') center center no-repeat;
   background-size: cover;
   border-radius: 20px;
@@ -846,7 +899,7 @@ footer .social-icon {
 }
 
 .footer-open-hour::after {
-  background: rgba(29, 29, 29, 0.85);
+  background: rgba(16, 35, 54, 0.7);
   content: '';
   position: absolute;
   top: 0;
@@ -934,7 +987,13 @@ footer .social-icon {
   }
 
   .slider .item {
-    background-position: center;
+    background-position: inherit;
+    background-repeat: no-repeat;
+    background-attachment: local;
+    background: #102336;
+    background-size: cover;
+    height: 250px;
+    /*background-position: center;*/
   }
 
   .about-info {
@@ -949,7 +1008,7 @@ footer .social-icon {
     width: 100%;
   }
 
-  #testimonial {
+  #networks {
     background-position: 50% 0 !important;
   }
 
@@ -971,6 +1030,11 @@ footer .social-icon {
 }
 
 @media only screen and (max-width: 767px) {
+
+  .team-thumb img {
+    margin-bottom: 5%;
+  }
+
   h1 {
     font-size: 2.5em;
   }
@@ -1006,8 +1070,14 @@ footer .social-icon {
 
   .custom-navbar .navbar-brand,
   .top-nav-collapse .navbar-brand {
-    color: #252525;
-    font-weight: 600;
+    /*color: #252525;
+    font-weight: 600;*/
+    position: relative;
+    background: url(../images/logo/main-logo.png) center no-repeat;
+    width: 170px;
+    max-height: 70px;
+    left: 15px;
+    background-size: cover;
   }
 
   .custom-navbar .nav li a,

@@ -1,10 +1,53 @@
+var count = 0
+var files = [];
+var mediaString = "";
+var finalTotal = 0;
+
 (function ($) {
 
   "use strict";
 
     // PRE LOADER
     $(window).load(function(){
+      $("img.selectable").imgCheckbox();
       $('.preloader').fadeOut(1000); // set duration in brackets    
+    });
+
+    $(document).ready(function () {
+
+    $('.tm-search-form').validate({
+          rules: {
+              name: {
+                  minlength: 2,
+                  required: true
+              },
+              phone: {
+                digits: true,
+                required: true
+              },
+              email: {
+                  required: true,
+                  email: true
+              },
+              institution: {
+                  minlength: 3,
+                  required: true
+              }
+          },
+          highlight: function (element) {
+              $(element).closest('.control-group').removeClass('success').addClass('error');
+          },
+          success: function (element) {
+              element.text('OK').addClass('valid')
+                  .closest('.control-group').removeClass('error').addClass('success');
+          }
+      });
+
+    // $('#btnSubmit').on('click', function() {
+    //   if($('.tm-search-form').valid()) {
+    //     console.log("hehe");
+    //   }
+    // });
     });
 
 
@@ -115,3 +158,111 @@
     new WOW({ mobile: false }).init();
 
 })(jQuery);
+
+
+async function readURL(input) {
+ if (input.files && input.files[0]) {
+    for(var i = 0; i < input.files.length; i++){
+      if(files.length == 0) {
+        var photoWrap = document.getElementById("img-wrap");
+        photoWrap.style.display = "block";
+        var reader = new FileReader();      
+        reader.onload = function(e) {
+          $('.photo').attr('src', e.target.result);
+          $('.photo').attr('data-id' , input.files[0].name);
+        }
+        reader.readAsDataURL(input.files[0]);
+      } else {
+        count++;
+        var name = input.files[i].name;
+        var result = await readFile(input.files[i]);
+        var cloneDiv = $("#img-wrap").clone(true);
+        cloneDiv[0].style.display = "block";
+        cloneDiv.attr('class', "img-wrapper"+count+" col-md-3 col-sm-3");
+        cloneDiv.find('img').attr('class', "photo"+count);
+        cloneDiv.appendTo("#photos-row");
+        $('.photo'+count).attr('src', result);
+        $('.photo'+count).attr('data-id' , name);
+      }
+      files.push(input.files[i].name); 
+    }
+  }
+}
+
+function readFile(file) {
+  var reader = new FileReader();    
+  return new Promise(resolve => {
+    reader.onload = function(e) {
+      resolve(e.target.result);
+    }
+    reader.readAsDataURL(file)
+  });
+}
+
+$('#img-wrap .close').on('click', function() {
+    var id = $(this).closest('#img-wrap').find('img').data('id');
+    // console.log($(this).closest('#img-wrap').find('img').attr('src'));
+    var className = document.getElementsByClassName($(this).closest('#img-wrap').attr('class'));
+    className[0].remove();
+    files.splice(files.indexOf(id), 1);
+    console.log(files.length);
+});
+
+$("#file-photos").change(function() {
+  readURL(this);
+});
+
+$("#docpicker").change(function() {
+  var file = $('#docpicker')[0].files[0]
+  if(file) {
+    $('.nameFile').html("1 file selected - " + file['name']);
+  }
+});
+
+$('.addPhotos').on('click', function() { $('#file-photos').click();return false;});
+$('.addFile').on('click', function() { $('#docpicker').click();return false;});
+$(".media-list").submit(function() {
+        var str = $(this).serialize();
+        var replace = str.replace(/=on/g, ", ");
+        var n = replace.lastIndexOf(",");
+        var replaceResult = replace.slice(0, n) + replace.slice(n).replace(", ", ".");
+        var final = replaceResult.replace(/&/g, "");
+        if(final.length === 0) {
+          finalTotal = 0;
+        } else {
+          finalTotal = (final.split(",")).length;
+        }
+        console.log(final);
+        console.log(finalTotal);
+        mediaString = final;
+        $('.countMedia').html(finalTotal + " Media Chosen");
+        $('#largeModal').modal('toggle');
+        return false;
+      })
+
+$('#form-form').on('submit', function(e) {
+  e.preventDefault();
+    if($('.tm-search-form').valid()) {
+      if(files.length == 0) {
+        console.log("hehe");
+      }
+      var name = $('#name').val();
+      console.log(name);
+      console.log(count);
+      jQuery.ajax({
+        type: "POST",
+        url: '../php/mail.php',
+        dataType: 'json',
+        data: {functionname: 'add', arguments: [1, 2]},
+
+        success: function (obj, textstatus) {
+                      if( !('error' in obj) ) {
+                         
+                      }
+                      else {
+                          console.log(obj.error);
+                      }
+                }
+    });
+    }
+})
