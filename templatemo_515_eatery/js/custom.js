@@ -1,7 +1,10 @@
 var count = 0
 var files = [];
+var dataFiles = [];
+var docFile = "";
 var mediaString = "";
 var finalTotal = 0;
+var spinner = "";
 
 (function ($) {
 
@@ -14,8 +17,8 @@ var finalTotal = 0;
     });
 
     $(document).ready(function () {
-
-    $('.tm-search-form').validate({
+      spinner = $('#loader');
+      $('.tm-search-form').validate({
           rules: {
               name: {
                   minlength: 2,
@@ -35,19 +38,12 @@ var finalTotal = 0;
               }
           },
           highlight: function (element) {
-              $(element).closest('.control-group').removeClass('success').addClass('error');
+              $(element).parent().addClass('error').removeClass('success');
           },
           success: function (element) {
-              element.text('OK').addClass('valid')
-                  .closest('.control-group').removeClass('error').addClass('success');
+              element.text('').addClass('valid').parent().removeClass('error').addClass('success');
           }
       });
-
-    // $('#btnSubmit').on('click', function() {
-    //   if($('.tm-search-form').valid()) {
-    //     console.log("hehe");
-    //   }
-    // });
     });
 
 
@@ -105,42 +101,7 @@ var finalTotal = 0;
         return openerElement.is('img') ? openerElement : openerElement.find('img');
         }
       }
-    });  
-
-/*
-    // CONTACT FORM
-    $("#contact-form").submit(function (e) {
-      e.preventDefault();
-      var name = $("#cf-name").val();
-      var email = $("#cf-email").val();
-      var subject = $("#cf-subject").val();
-      var message = $("#cf-message").val();
-      var dataString = 'name=' + name + '&email=' + email + '&subject=' + subject + '&message=' + message;
-
-      function isValidEmail(emailAddress) {
-          var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-          return pattern.test(emailAddress);
-      };
-      if (isValidEmail(email) && (message.length > 1) && (name.length > 1)) {
-          $.ajax({
-              type: "POST",
-              url: "email.php",
-              data: dataString,
-              success: function () {
-                  $('.text-success').fadeIn(1000);
-                  $('.text-danger').fadeOut(500);
-              }
-          });
-      }
-      else {
-          $('.text-danger').fadeIn(1000);
-          $('.text-success').fadeOut(500);
-      }
-      return false;
-    });
-
-*/
-
+    }); 
 
     // SMOOTHSCROLL
     $(function() {
@@ -184,7 +145,8 @@ async function readURL(input) {
         $('.photo'+count).attr('src', result);
         $('.photo'+count).attr('data-id' , name);
       }
-      files.push(input.files[i].name); 
+      files.push(input.files[i].name);
+      dataFiles.push(input.files[i]);
     }
   }
 }
@@ -201,21 +163,22 @@ function readFile(file) {
 
 $('#img-wrap .close').on('click', function() {
     var id = $(this).closest('#img-wrap').find('img').data('id');
-    // console.log($(this).closest('#img-wrap').find('img').attr('src'));
     var className = document.getElementsByClassName($(this).closest('#img-wrap').attr('class'));
     className[0].remove();
     files.splice(files.indexOf(id), 1);
-    console.log(files.length);
+    dataFiles.splice(files.indexOf(id), 1);
 });
 
 $("#file-photos").change(function() {
+  $('.errorFile').html("");
   readURL(this);
 });
 
 $("#docpicker").change(function() {
-  var file = $('#docpicker')[0].files[0]
-  if(file) {
-    $('.nameFile').html("1 file selected - " + file['name']);
+  docFile = $('#docpicker')[0].files[0];
+  if(docFile) {
+    $('.nameFile').html("1 file selected - " + docFile['name']);
+    $('.nameFile')[0].style.color = "#757575";
   }
 });
 
@@ -227,15 +190,15 @@ $(".media-list").submit(function() {
         var n = replace.lastIndexOf(",");
         var replaceResult = replace.slice(0, n) + replace.slice(n).replace(", ", ".");
         var final = replaceResult.replace(/&/g, "");
-        if(final.length === 0) {
+        var final2 = replaceResult.replace(/+/g, " ");
+        if(final2.length === 0) {
           finalTotal = 0;
         } else {
-          finalTotal = (final.split(",")).length;
+          finalTotal = (final2.split(",")).length;
         }
-        console.log(final);
-        console.log(finalTotal);
-        mediaString = final;
+        mediaString = final2;
         $('.countMedia').html(finalTotal + " Media Chosen");
+        $('.countMedia')[0].style.color = "#757575";
         $('#largeModal').modal('toggle');
         return false;
       })
@@ -243,26 +206,58 @@ $(".media-list").submit(function() {
 $('#form-form').on('submit', function(e) {
   e.preventDefault();
     if($('.tm-search-form').valid()) {
-      if(files.length == 0) {
-        console.log("hehe");
+      var valid = true;
+      if(docFile == "") {
+        valid = false;
+        $('.nameFile').html("Please choose file first");
+        $('.nameFile')[0].style.color = "#FF0000";
       }
-      var name = $('#name').val();
-      console.log(name);
-      console.log(count);
-      jQuery.ajax({
-        type: "POST",
-        url: '../php/mail.php',
-        dataType: 'json',
-        data: {functionname: 'add', arguments: [1, 2]},
-
-        success: function (obj, textstatus) {
-                      if( !('error' in obj) ) {
-                         
-                      }
-                      else {
-                          console.log(obj.error);
-                      }
-                }
-    });
+      if(files.length == 0) {
+        valid = false;
+        $('.errorFile').html("Please choose image first");
+        $('.errorFile')[0].style.color = "#FF0000";
+      }
+      if(finalTotal == 0) {
+        valid = false;
+        $('.countMedia').html("Please choose media first");
+        $('.countMedia')[0].style.color = "#FF0000";
+      }
+      if(valid) {
+        var name = $('#name').val();
+        var institution = $('#institution').val();
+        var phone = $('#phone').val();
+        var email = $('#email').val();
+        sendMail(name, institution, phone, email, dataFiles);
+      }
     }
 })
+
+function sendMail(name, institution, phone, email, files){
+  spinner.show();
+  var formData = new FormData();
+  formData.append('name', name);
+  formData.append('institution', institution);
+  formData.append('phone', phone);
+  formData.append('email', email);
+  formData.append('docFile', docFile);
+  formData.append('filesTotal', files.length);
+  formData.append('mediaString', mediaString);
+  files.forEach(function(files, i) {
+    formData.append('files_' + i, files);
+  });
+  var request = new XMLHttpRequest();
+  request.onreadystatechange = function()
+      {
+          if (request.readyState == 4 && request.status == 200)
+          {
+              spinner.hide();
+              handleData(request.responseText); // Another callback here
+          }
+      }; 
+  request.open("POST", "php/mail.php");
+  request.send(formData);
+}
+
+function handleData(data) {
+  window.location.replace("https://api.whatsapp.com/send?phone=6282299134990&text=Hi, aku " + $('#name').val() + " mau menggunakan service tampil berita");
+}

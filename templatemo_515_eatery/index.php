@@ -3,13 +3,13 @@
 <head>
 
      <title>Tampil Berita</title>
-
+     <link rel="shortcut icon" type="image/x-icon" href="images/logo/main-logo.png" />
      <meta charset="UTF-8">
      <meta http-equiv="X-UA-Compatible" content="IE=Edge">
      <meta name="description" content="">
      <meta name="keywords" content="">
      <meta name="author" content="">
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=0.5, maximum-scale=1">
 
      <link rel="stylesheet" href="css/bootstrap.min.css">
      <link rel="stylesheet" href="css/animate.css">
@@ -18,7 +18,7 @@
      <link rel="stylesheet" href="css/magnific-popup.css">
 
      <!-- MAIN CSS -->
-     <link rel="stylesheet" href="css/templatemo-style.css">
+     <link rel="stylesheet" href="css/main-style.css">
 
 </head>
 <body>
@@ -31,7 +31,6 @@
                
           </div>
      </section>
-
 
      <!-- MENU -->
      <section class="navbar custom-navbar navbar-fixed-top" role="navigation">
@@ -74,7 +73,7 @@
                       </div>
                   </div>
                   <div class="row tm-banner-row" id="tm-section-search">
-                      <form id="form-form" class="center-block tm-search-form tm-section-pad-2">
+                      <form id="form-form" class="center-block tm-search-form tm-section-pad-2" enctype="multipart/form-data">
                         <legend class="text-center header">
                           <h4 class="wv-heading--title" style="color: #ffffff">
                               Share Your Press Release
@@ -102,7 +101,7 @@
                                   <br>
                                   <button class="addFile btn btn-primary mb-2">Add File</button>
                                   <input type="file" id="docpicker" style="display: none" 
-                                  accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+                                  accept=".doc,.docx,application/msword,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
                                   <p class="nameFile"></p>
                               </div>
                               <div id="photoFiles" class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
@@ -116,6 +115,7 @@
                                         <img src="#" data-id="123" class="photo" width=100 height=100>
                                     </div>
                                   </div>
+                                  <p class="errorFile"></p>
                               </div>
                               <div class="form-group tm-form-group tm-form-group-pad tm-form-group-3">
                                   <label for="inputCheckOut">Choose Media</label>
@@ -401,7 +401,7 @@
                     </div>
 
                     <div class="col-md-6 col-sm-8">
-                         <div class="footer-info footer-open-hour">
+                         <div class="footer-info footer-open-hour fadeInUp wow" data-wow-delay="0.2s">
                               <div class="section-title">
                                    <h2 class="wow fadeInUp" data-wow-delay="0.2s">Open Hours</h2>
                               </div>
@@ -420,9 +420,9 @@
 
                     <div class="col-md-3 col-sm-8">
                          <ul class="wow fadeInUp social-icon" data-wow-delay="0.4s">
-                              <li><a href="#" class="far fa-envelope"></a></li>
-                              <li><a href="http://instagram.com/_u/tampilberita/" class="fab fa-instagram"></a></li>
-                              <li><a href="#" class="fab fa-whatsapp"></a></li>
+                              <li><a href="mailto:cs@tampilberita.com?Subject=Saya ingin menggunakan service tampil berita" class="far fa-envelope"></a></li>
+                              <li><a href="https://instagram.com/_u/tampilberita/" class="fab fa-instagram"></a></li>
+                              <li><a href="https://api.whatsapp.com/send?phone=6282299134990&text=Hi, aku mau menggunakan service tampil berita" class="fab fa-whatsapp"></a></li>
                          </ul>
 
                          <div class="wow fadeInUp copyright-text" data-wow-delay="0.8s"> 
@@ -436,6 +436,8 @@
                </div>
           </div>
      </footer>
+
+     <div id="loader"></div>
 
      <div id="largeModal" class="modal fade" role="dialog" tabindex="-1" aria-labelledby="basicModal" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -455,19 +457,19 @@
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 4.png" name="InvestorDaily" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 5.png" name="Sindonews" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 6.png" name="Tempo.co" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 7.png" name="Warta Ekonomi" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 7.png" name="WartaEkonomi" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 8.png" name="Okezone" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 9.png" name="Tribunnews" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 10.png" name="Berita Satu" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 11.png" name="Media Indonesia" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 10.png" name="BeritaSatu" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 11.png" name="MediaIndonesia" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 12.png" name="Indopos" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 13.png" name="Akurat" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 14.png" name="Liputan 6" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 14.png" name="Liputan6" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 15.png" name="SWA" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 16.png" name="Marketing" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 17.png" name="Jawa Pos" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 17.png" name="JawaPos" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 18.png" name="Jitunews" style="width:100%; height:100%" class="selectable"></div>
-                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 19.png" name="Suara Karya" style="width:100%; height:100%" class="selectable"></div>
+                  <div class="col-xs-2 col-md-2"><img src="images/our-network/network 19.png" name="SuaraKarya" style="width:100%; height:100%" class="selectable"></div>
                   <div class="col-xs-2 col-md-2"><img src="images/our-network/network 20.png" name="Bisnis.com" style="width:100%; height:100%" class="selectable"></div>
               </div>
 
